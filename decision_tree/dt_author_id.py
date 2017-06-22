@@ -19,7 +19,25 @@ from email_preprocess import preprocess
 ### labels_train and labels_test are the corresponding item labels
 features_train, features_test, labels_train, labels_test = preprocess()
 
+print("Feature Lenght: ", len(features_train[0]))
 
+from sklearn.tree import DecisionTreeClassifier
+
+clf = DecisionTreeClassifier(min_samples_split=40)
+
+t1 = time()
+clf.fit(features_train, labels_train)
+print("Training time: ", round(time()-t1, 3), "S")
+
+t2 = time()
+pred = clf.predict(features_test)
+print("Prediction time: ", round(time()-t2, 3), "s")
+
+from sklearn.metrics import accuracy_score
+
+accuracy = accuracy_score(labels_test, pred)
+
+print(accuracy)
 
 
 #########################################################
